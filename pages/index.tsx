@@ -1,8 +1,9 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import CartSummary from '../components/CartSummary';
+import productsData from '../data/data.json'; 
 
 interface Product {
   id: number;
@@ -41,13 +42,10 @@ const Home: React.FC<HomeProps> = ({ products }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch('https://your-json-server.typicode.com/your-repo/products');
-  const products = await res.json();
-
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      products,
+      products: productsData,
     },
   };
 };
